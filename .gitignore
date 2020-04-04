@@ -1,2 +1,4 @@
 node_modules
 yarn.lock
+.nuxt/
+server/src/constants.d.ts
