@@ -1,14 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const pgp = require('pg-promise')( /* initialization options */);
-const cn = {
-    host: 'localhost',
-    port: 5432,
-    database: 'monitoring',
-    user: 'maxime',
-    password: 'hyUjkd98'
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb://localhost:27017";
+const dbName = 'NoSqlCourse';
+var _db;
+exports.connect = function (callback) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, client) {
+        _db = client.db(dbName);
+        return callback(err);
+    });
 };
-// alternative:
-// var cn = 'postgres://username:password@host:port/database';
-const db = pgp(cn);
-exports.default = db;
+exports.getDb = function () {
+    return _db;
+};

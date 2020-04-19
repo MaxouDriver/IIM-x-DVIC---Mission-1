@@ -1,15 +1,18 @@
-import {DB_USERNAME, DB_PASSWORD} from './constants';
+const MongoClient = require( 'mongodb' ).MongoClient;
+const url = "mongodb://localhost:27017";
 
-const pgp = require('pg-promise');
+const dbName = 'NoSqlCourse';
 
-const cn = {
-    host: 'localhost',
-    port: 5432,
-    database: 'monitoring',
-    user: DB_USERNAME,
-    password: DB_PASSWORD
+var _db: any;
+
+export const connect = function( callback: Function ) {
+  MongoClient.connect( url,  { useNewUrlParser: true }, function( err: any, client: any ) {
+    _db  = client.db(dbName);
+    return callback( err );
+  });
 };
 
-const db = pgp(cn);
 
-export default db;
+export const getDb = function() {
+  return _db;
+};
