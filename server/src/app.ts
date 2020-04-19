@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import baseRoute from "./routes/base";
 import clientRoute from "./routes/client";
+import projectRoute from "./routes/project";
 import { connect } from './database';
 
 const app : express.Application = express();
@@ -14,6 +15,7 @@ connect((err: any) => {
 
     app.use("/base", baseRoute);
     app.use("/client", clientRoute);
+    app.use("/project", projectRoute);
 });
 
 app.use(bodyParser.json());
